@@ -13,7 +13,9 @@ public class VitalSigns {
     double temperature;
     double bloodPressure;
     int pulse;
-    String date;
+    String year;
+    String month;
+    String day;
 
     public double getTemperature() {
         return temperature;
@@ -39,15 +41,33 @@ public class VitalSigns {
         this.pulse = pulse;
     }
 
-    public String getDate() {
-        return date;
+    public String getYear() {
+        return year;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setYear(String year) {
+        this.year = year;
     }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+    
+    
     @Override//to replace object with date
     public String toString(){
-        return this.date;
+       return (this.month+" "+this.day+", "+this.year);
     }
 }

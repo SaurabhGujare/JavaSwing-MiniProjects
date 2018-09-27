@@ -9,6 +9,7 @@ import Business.VitalSignHistory;
 import Business.VitalSigns;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -20,7 +21,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
      * Creates new form ViewVitalSign
      */
     VitalSignHistory vsh;
-     ArrayList<VitalSigns> abnVitalSignList;
+    ArrayList<VitalSigns> abnVitalSignList;
     public ViewVitalJPanel(VitalSignHistory vsh) {
         initComponents();
         this.vsh=vsh;
@@ -75,7 +76,6 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(157, 198, 235));
         setPreferredSize(new java.awt.Dimension(676, 574));
@@ -145,14 +145,24 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         filterJPanel.setBackground(new java.awt.Color(157, 198, 235));
         filterJPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        minTF.setText("80");
+        minTF.setText("60");
         minTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 minTFActionPerformed(evt);
             }
         });
+        minTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                intTextFieldFocusLost(evt);
+            }
+        });
 
-        maxTF.setText("120");
+        maxTF.setText("100");
+        maxTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                intTextFieldFocusLost(evt);
+            }
+        });
 
         minLbl.setText("Min");
 
@@ -172,7 +182,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Pulse(Normal Range80-120bpm)");
+        jLabel2.setText("Pulse(Normal Range 60-100bpm)");
 
         jLabel4.setText("bpm");
 
@@ -239,8 +249,6 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("bpm");
 
-        jLabel8.setText("YYYY/MM/DD");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,8 +286,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -318,8 +325,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLbl)
-                    .addComponent(jLabel8))
+                    .addComponent(dateLbl))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -339,7 +345,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             temperatureTF.setText(String.valueOf(vs.getTemperature()));
             bloodPressureTF.setText(String.valueOf(vs.getBloodPressure()));
             pulseTF.setText(String.valueOf(vs.getPulse()));
-            dateTF.setText(vs.getDate());
+            dateTF.setText(String.valueOf(vs.getMonth()+" "+vs.getDay()+", "+vs.getYear()));
             
         }
         else{
@@ -353,16 +359,20 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        int confirm=JOptionPane.showConfirmDialog(null, "Do you really want to delete", "Delete", JOptionPane.YES_NO_OPTION);
+        if(confirm==0){
         int selectedRow= vitalSignTbl.getSelectedRow();
-        if(selectedRow>=0){
-            VitalSigns vs= (VitalSigns)vitalSignTbl.getValueAt(selectedRow, 0);
-            vsh.deleteVitals(vs);
-            JOptionPane.showMessageDialog(null, "Vital sign has been deleted");
-            populateTable();
-        }
-        else{
+            if(selectedRow>=0){
+                VitalSigns vs= (VitalSigns)vitalSignTbl.getValueAt(selectedRow, 0);
+                vsh.deleteVitals(vs);
+                JOptionPane.showMessageDialog(null, "Vital sign has been deleted");
+                populateTable();
+            }
+            else{
             JOptionPane.showMessageDialog(null, "Please Select any row");
+            }
         }
+        
     }//GEN-LAST:event_deleteBtnActionPerformed
    
 
@@ -377,8 +387,8 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         String minPulseStr=minTF.getText();
         
         
-        int maxPulse=maxPulseStr.equals("")?120:Integer.parseInt(maxPulseStr);
-        int minPulse=minPulseStr.equals("")?80:Integer.parseInt(minPulseStr);
+        int maxPulse=maxPulseStr.equals("")?100:Integer.parseInt(maxPulseStr);
+        int minPulse=minPulseStr.equals("")?60:Integer.parseInt(minPulseStr);
                       
         /*************Populate table*****/
         DefaultTableModel dtm = (DefaultTableModel)vitalSignTbl.getModel();
@@ -400,6 +410,21 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_clearBtnActionPerformed
 
+    private void intTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_intTextFieldFocusLost
+        // TODO add your handling code here:
+        JTextField intField=(JTextField)evt.getComponent();
+        try{
+        if(intField.getText()!=null&& !intField.getText().equals("")){
+            Integer.parseInt(intField.getText());
+        }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Invalid Input: Please enter valid inputs");
+            intField.requestFocus();
+            intField.setText("");
+        }
+    }//GEN-LAST:event_intTextFieldFocusLost
+
     public ArrayList<VitalSigns> getAbnList(int maxPulse, int minPulse){
        for(VitalSigns vs:vsh.getVitalSignHistory()){
            if(vs.getPulse()>maxPulse||vs.getPulse()<minPulse){
@@ -410,6 +435,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
        
        return abnVitalSignList;
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bloodPressureLbl;
@@ -427,7 +453,6 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel maxLbl;
     private javax.swing.JTextField maxTF;

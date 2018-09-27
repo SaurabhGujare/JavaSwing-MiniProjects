@@ -7,8 +7,11 @@ package Interface;
 
 import Business.VitalSignHistory;
 import Business.VitalSigns;
+//import java.util.Calendar;
+//import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -38,7 +41,6 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         temperatureTF = new javax.swing.JTextField();
         bloodPressureTF = new javax.swing.JTextField();
         pulseTF = new javax.swing.JTextField();
-        dateTF = new javax.swing.JTextField();
         bloodPressureLbl = new javax.swing.JLabel();
         pulseLbl = new javax.swing.JLabel();
         dateLbl = new javax.swing.JLabel();
@@ -47,11 +49,36 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        yearComboBox = new javax.swing.JComboBox();
+        monthComboBox = new javax.swing.JComboBox();
+        dayComboBox = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(157, 198, 235));
 
         temperatureLbl.setText("Temperature");
+
+        temperatureTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temperatureTFActionPerformed(evt);
+            }
+        });
+        temperatureTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                doubleTextFieldFocusLost(evt);
+            }
+        });
+
+        bloodPressureTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                doubleTextFieldFocusLost(evt);
+            }
+        });
+
+        pulseTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                intTextFieldFocusLost(evt);
+            }
+        });
 
         bloodPressureLbl.setText("Blood Pressure");
 
@@ -75,7 +102,16 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("bpm");
 
-        jLabel8.setText("YYYY/MM/DD");
+        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018" }));
+        yearComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearComboBoxActionPerformed(evt);
+            }
+        });
+
+        monthComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan.", "Feb. ", "Mar.", "Apr.", "May ", "June", "July", "Aug.", "Sept.", "Oct. ", "Nov.", "Dec." }));
+
+        dayComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,66 +126,73 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
                             .addComponent(bloodPressureLbl)
                             .addComponent(pulseLbl)
                             .addComponent(dateLbl))
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveBtn)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel5))))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureLbl, dateLbl, pulseLbl, temperatureLbl});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureTF, dateTF, pulseTF, temperatureTF});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureTF, pulseTF, temperatureTF});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dayComboBox, monthComboBox});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temperatureLbl)
                     .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bloodPressureLbl)
                     .addComponent(jLabel6))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pulseLbl)
                     .addComponent(jLabel7))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLbl)
-                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateLbl, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dayComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(saveBtn)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bloodPressureLbl, dateLbl, pulseLbl, temperatureLbl});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bloodPressureTF, dateTF, pulseTF, temperatureTF});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bloodPressureTF, pulseTF, temperatureTF});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dayComboBox, monthComboBox, yearComboBox});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -161,7 +204,9 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         double temperature=Double.parseDouble(temperatureTF.getText());      
         double bloodPressure=Double.parseDouble(bloodPressureTF.getText());
         int pulse=Integer.parseInt(pulseTF.getText());
-        String date=dateTF.getText();
+        String year=yearComboBox.getSelectedItem().toString();
+        String month=monthComboBox.getSelectedItem().toString();
+        String day=dayComboBox.getSelectedItem().toString();
         
         VitalSigns v=vsh.addVitals();
         
@@ -169,39 +214,81 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         v.setTemperature(temperature);
         v.setBloodPressure(bloodPressure);
         v.setPulse(pulse);
-        v.setDate(date);
+       
+        v.setYear(year);
+        v.setMonth(month);
+        v.setDay(day);
         JOptionPane.showMessageDialog(null,"Data saved successfully");
         
         //Set textfield back to empty
         temperatureTF.setText("");
         bloodPressureTF.setText("");
         pulseTF.setText("");
-        dateTF.setText("");
+        yearComboBox.setSelectedItem("");
+        monthComboBox.setSelectedItem("");
+        dayComboBox.setSelectedItem("");
+        
         }
         catch(NumberFormatException e){
-        JOptionPane.showMessageDialog(null, "Enter valid inputs");
-        temperatureTF.setText("");
-        bloodPressureTF.setText("");
-        pulseTF.setText("");
-        dateTF.setText(""); 
-        }   
+        JOptionPane.showMessageDialog(null, "Please enter all the values");
+        }
+          
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void yearComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yearComboBoxActionPerformed
+
+    private void temperatureTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_temperatureTFActionPerformed
+
+    private void doubleTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_doubleTextFieldFocusLost
+        // TODO add your handling code here:
+        JTextField doubleFiled=(JTextField)evt.getComponent();
+        try{
+        if(doubleFiled.getText()!=null&& !doubleFiled.getText().equals("")){
+            Double.parseDouble(doubleFiled.getText());
+        }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Invalid Input: Please enter valid inputs");
+            doubleFiled.requestFocus();
+            doubleFiled.setText("");
+        }
+    }//GEN-LAST:event_doubleTextFieldFocusLost
+
+    private void intTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_intTextFieldFocusLost
+        // TODO add your handling code here:
+        JTextField intField=(JTextField)evt.getComponent();
+        try{
+        if(intField.getText()!=null&& !intField.getText().equals("")){
+            Integer.parseInt(intField.getText());
+        }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Invalid Input: Please enter valid inputs");
+            intField.requestFocus();
+            intField.setText("");
+        }
+    }//GEN-LAST:event_intTextFieldFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bloodPressureLbl;
     private javax.swing.JTextField bloodPressureTF;
     private javax.swing.JLabel dateLbl;
-    private javax.swing.JTextField dateTF;
+    private javax.swing.JComboBox dayComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JComboBox monthComboBox;
     private javax.swing.JLabel pulseLbl;
     private javax.swing.JTextField pulseTF;
     private javax.swing.JButton saveBtn;
     private javax.swing.JLabel temperatureLbl;
     private javax.swing.JTextField temperatureTF;
+    private javax.swing.JComboBox yearComboBox;
     // End of variables declaration//GEN-END:variables
 }
