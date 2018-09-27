@@ -7,6 +7,7 @@ package Interface;
 
 import Business.VitalSignHistory;
 import Business.VitalSigns;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -19,10 +20,12 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
      * Creates new form ViewVitalSign
      */
     VitalSignHistory vsh;
+     ArrayList<VitalSigns> abnVitalSignList;
     public ViewVitalJPanel(VitalSignHistory vsh) {
         initComponents();
         this.vsh=vsh;
         populateTable();
+        abnVitalSignList=new ArrayList<VitalSigns>();
     }
     //Method to display all the records into the Table that are present in the arraylist 
     public void populateTable(){
@@ -33,7 +36,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         {
             Object row[]=new Object[2];
             row[0] = vs;
-            row[1] = vs.getBloodPressure();
+            row[1] = vs.getPulse();
             dtm.addRow(row);
         }
     }
@@ -59,6 +62,20 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         pulseTF = new javax.swing.JTextField();
         dateLbl = new javax.swing.JLabel();
         dateTF = new javax.swing.JTextField();
+        filterJPanel = new javax.swing.JPanel();
+        minTF = new javax.swing.JTextField();
+        maxTF = new javax.swing.JTextField();
+        minLbl = new javax.swing.JLabel();
+        maxLbl = new javax.swing.JLabel();
+        filterBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(157, 198, 235));
         setPreferredSize(new java.awt.Dimension(676, 574));
@@ -73,7 +90,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Date", "Blood Pressure"
+                "Date", "Pulse"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -125,71 +142,185 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         dateTF.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         dateTF.setEnabled(false);
 
+        filterJPanel.setBackground(new java.awt.Color(157, 198, 235));
+        filterJPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        minTF.setText("80");
+        minTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minTFActionPerformed(evt);
+            }
+        });
+
+        maxTF.setText("120");
+
+        minLbl.setText("Min");
+
+        maxLbl.setText("Max");
+
+        filterBtn.setText("Filter");
+        filterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterBtnActionPerformed(evt);
+            }
+        });
+
+        clearBtn.setText("Clear");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Pulse(Normal Range80-120bpm)");
+
+        jLabel4.setText("bpm");
+
+        jLabel3.setText("bpm");
+
+        javax.swing.GroupLayout filterJPanelLayout = new javax.swing.GroupLayout(filterJPanel);
+        filterJPanel.setLayout(filterJPanelLayout);
+        filterJPanelLayout.setHorizontalGroup(
+            filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(filterBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(clearBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(filterJPanelLayout.createSequentialGroup()
+                .addGroup(filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(filterJPanelLayout.createSequentialGroup()
+                        .addGroup(filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(filterJPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(minLbl))
+                            .addGroup(filterJPanelLayout.createSequentialGroup()
+                                .addComponent(minTF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(filterJPanelLayout.createSequentialGroup()
+                                .addComponent(maxTF, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4))
+                            .addComponent(maxLbl)))
+                    .addGroup(filterJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        filterJPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {maxTF, minTF});
+
+        filterJPanelLayout.setVerticalGroup(
+            filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterJPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(minTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(filterJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(minLbl)
+                    .addComponent(maxLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filterBtn)
+                .addGap(3, 3, 3)
+                .addComponent(clearBtn))
+        );
+
+        filterJPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {maxTF, minTF});
+
+        jLabel5.setText("°C");
+
+        jLabel6.setText("mmHg");
+
+        jLabel7.setText("bpm");
+
+        jLabel8.setText("YYYY/MM/DD");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(temperatureLbl)
-                                .addComponent(bloodPressureLbl)
-                                .addComponent(pulseLbl)
-                                .addComponent(dateLbl))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dateTF)
-                                .addComponent(pulseTF)
-                                .addComponent(bloodPressureTF)
-                                .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(239, 239, 239)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(viewDetailsBtn)
-                            .addGap(18, 18, 18)
-                            .addComponent(deleteBtn))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 46, Short.MAX_VALUE)
+                                .addComponent(viewDetailsBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteBtn))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(filterJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(temperatureLbl)
+                            .addComponent(bloodPressureLbl)
+                            .addComponent(pulseLbl)
+                            .addComponent(dateLbl))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pulseTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(bloodPressureTF, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(temperatureTF, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateTF))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteBtn, viewDetailsBtn});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureLbl, dateLbl, pulseLbl, temperatureLbl});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureTF, dateTF, pulseTF, temperatureTF});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(filterJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteBtn)
                     .addComponent(viewDetailsBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temperatureLbl)
-                    .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bloodPressureLbl))
+                    .addComponent(bloodPressureLbl)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pulseLbl))
+                    .addComponent(pulseLbl)
+                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLbl))
-                .addContainerGap(111, Short.MAX_VALUE))
+                    .addComponent(dateLbl)
+                    .addComponent(jLabel8))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {deleteBtn, viewDetailsBtn});
@@ -233,16 +364,75 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please Select any row");
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
+   
 
+    private void minTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_minTFActionPerformed
+
+    private void filterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterBtnActionPerformed
+        // TODO add your handling code here:
+        
+        String maxPulseStr=maxTF.getText();
+        String minPulseStr=minTF.getText();
+        
+        
+        int maxPulse=maxPulseStr.equals("")?120:Integer.parseInt(maxPulseStr);
+        int minPulse=minPulseStr.equals("")?80:Integer.parseInt(minPulseStr);
+                      
+        /*************Populate table*****/
+        DefaultTableModel dtm = (DefaultTableModel)vitalSignTbl.getModel();
+        
+        dtm.setRowCount(0);//remove all the row that are displayed already
+    
+        for(VitalSigns vs: getAbnList(maxPulse, minPulse))
+        {
+            Object row[]=new Object[2];
+            row[0] = vs;
+            row[1] = vs.getPulse();
+            dtm.addRow(row);
+        }
+        
+    }//GEN-LAST:event_filterBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    public ArrayList<VitalSigns> getAbnList(int maxPulse, int minPulse){
+       for(VitalSigns vs:vsh.getVitalSignHistory()){
+           if(vs.getPulse()>maxPulse||vs.getPulse()<minPulse){
+               abnVitalSignList.add(vs);
+           }
+       }
+       
+       
+       return abnVitalSignList;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bloodPressureLbl;
     private javax.swing.JTextField bloodPressureTF;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JLabel dateLbl;
     private javax.swing.JTextField dateTF;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton filterBtn;
+    private javax.swing.JPanel filterJPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel maxLbl;
+    private javax.swing.JTextField maxTF;
+    private javax.swing.JLabel minLbl;
+    private javax.swing.JTextField minTF;
     private javax.swing.JLabel pulseLbl;
     private javax.swing.JTextField pulseTF;
     private javax.swing.JLabel temperatureLbl;

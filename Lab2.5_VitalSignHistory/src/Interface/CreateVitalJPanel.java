@@ -8,6 +8,7 @@ package Interface;
 import Business.VitalSignHistory;
 import Business.VitalSigns;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -43,6 +44,10 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         dateLbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         saveBtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(157, 198, 235));
 
@@ -64,6 +69,14 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setText("°C");
+
+        jLabel6.setText("mmHg");
+
+        jLabel7.setText("bpm");
+
+        jLabel8.setText("YYYY/MM/DD");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,12 +93,24 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveBtn)
-                            .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bloodPressureLbl, dateLbl, pulseLbl, temperatureLbl});
@@ -100,19 +125,23 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temperatureLbl)
-                    .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(temperatureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodPressureTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bloodPressureLbl))
+                    .addComponent(bloodPressureLbl)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pulseTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pulseLbl))
+                    .addComponent(pulseLbl)
+                    .addComponent(jLabel7))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLbl))
+                    .addComponent(dateLbl)
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addComponent(saveBtn)
                 .addContainerGap(293, Short.MAX_VALUE))
@@ -127,7 +156,9 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
         //Get data in the variables
-        double temperature=Double.parseDouble(temperatureTF.getText());
+        try{
+        
+        double temperature=Double.parseDouble(temperatureTF.getText());      
         double bloodPressure=Double.parseDouble(bloodPressureTF.getText());
         int pulse=Integer.parseInt(pulseTF.getText());
         String date=dateTF.getText();
@@ -146,7 +177,14 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
         bloodPressureTF.setText("");
         pulseTF.setText("");
         dateTF.setText("");
-              
+        }
+        catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(null, "Enter valid inputs");
+        temperatureTF.setText("");
+        bloodPressureTF.setText("");
+        pulseTF.setText("");
+        dateTF.setText(""); 
+        }   
     }//GEN-LAST:event_saveBtnActionPerformed
 
 
@@ -156,6 +194,10 @@ public class CreateVitalJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel dateLbl;
     private javax.swing.JTextField dateTF;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel pulseLbl;
     private javax.swing.JTextField pulseTF;
     private javax.swing.JButton saveBtn;

@@ -14,8 +14,10 @@ import java.util.ArrayList;
 public class VitalSignHistory {
     private ArrayList<VitalSigns> vitalSignHistory;
     
+    
     public VitalSignHistory(){
         vitalSignHistory=new ArrayList<VitalSigns>();
+        
     }
     
     public ArrayList<VitalSigns> getVitalSignHistory() {
@@ -35,4 +37,7 @@ public class VitalSignHistory {
     public void deleteVitals(VitalSigns v){
         vitalSignHistory.remove(v);
     }
+    
+    
+    
 }
