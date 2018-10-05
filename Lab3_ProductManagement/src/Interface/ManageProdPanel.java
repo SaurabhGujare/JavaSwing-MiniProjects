@@ -18,9 +18,7 @@ import javax.swing.JPanel;
  */
 public class ManageProdPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ManageAccountPanel
-     */
+
     private ProductDirectory prodDir;
     private JPanel rightPanel;
 
@@ -172,7 +170,7 @@ public class ManageProdPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
             int selectionButton = JOptionPane.YES_NO_OPTION;
@@ -188,14 +186,14 @@ public class ManageProdPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        // TODO add your handling code here:
+
         rightPanel.remove(this);
         CardLayout layout = (CardLayout)rightPanel.getLayout();
         layout.previous(rightPanel);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
-        // TODO add your handling code here:
+
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow<0){
             JOptionPane.showMessageDialog(null, "Please select a Row!!");
@@ -210,7 +208,7 @@ public class ManageProdPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewDetailsActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+
         Product result = prodDir.searchAccount(txtSearch.getText());
         if(result==null){
             JOptionPane.showMessageDialog(null, "Product Name you entered does not exist");

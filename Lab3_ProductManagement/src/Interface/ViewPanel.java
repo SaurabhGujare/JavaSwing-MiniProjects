@@ -18,9 +18,7 @@ import javax.swing.JTextField;
  */
 public class ViewPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ViewPanel
-     */
+
     private ProductDirectory prodDir;
     private Product product;
     private JPanel rightPanel;
@@ -227,7 +225,7 @@ public class ViewPanel extends javax.swing.JPanel {
         rightPanel.remove(this);
         CardLayout layout = (CardLayout)rightPanel.getLayout();
         layout.previous(rightPanel);
-        //Different
+      
         Component[] components= rightPanel.getComponents();
         for(Component c: components){
             if(c instanceof ManageProdPanel){

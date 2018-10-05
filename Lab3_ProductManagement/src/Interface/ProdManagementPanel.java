@@ -76,7 +76,7 @@ public class ProdManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-         // TODO add your handling code here:
+
         CreateProductJPanel caPanel = new CreateProductJPanel(rightPanel,prodDir);
         rightPanel.add("CreateProductJPanel", caPanel);
         CardLayout layout=(CardLayout)rightPanel.getLayout();
@@ -85,7 +85,7 @@ public class ProdManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
-        // TODO add your handling code here:
+
         ManageProdPanel mngPanel = new ManageProdPanel(rightPanel,prodDir);
         rightPanel.add("ManageProdPanel", mngPanel);
         CardLayout layout=(CardLayout)rightPanel.getLayout();

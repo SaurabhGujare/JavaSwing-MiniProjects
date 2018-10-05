@@ -7,16 +7,9 @@ package Interface;
 import Business.ProductDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-/**
- *
- * @author info
- */
+
 public class MainJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainJFrame
-     */
-    
     private ProductDirectory prodDir;
     
     public MainJFrame() {
@@ -87,10 +80,9 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProdManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdManagerActionPerformed
-        // TODO add your handling code here:
+
         ProdManagementPanel amPanel = new ProdManagementPanel(rightPanel, prodDir);
         rightPanel.add("ProdManagementPanel",amPanel);//unique name needed. Also add panel with that name over the stack
-       // rightSplitPane.setRightComponent(amPanel);
         CardLayout layout=(CardLayout)rightPanel.getLayout();// get object of next panel
         layout.next(rightPanel);// Navigate from one panel to next
     }//GEN-LAST:event_btnProdManagerActionPerformed
