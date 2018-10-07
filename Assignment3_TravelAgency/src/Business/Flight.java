@@ -12,12 +12,17 @@ import java.util.Date;
  * @author saurabhgujare
  */
 public class Flight {
+ 
     private String flightNo;
     private Date departDate;
     private String departLoc;
     private Date arrivalDate;
     private String arrivalLoc;
     private double priceFlight;
+    private int departureHr;
+    private int arrivalHr;
+    private int departureMin;
+    private int arrivalMin;
 
     public String getFlightNo() {
         return flightNo;
@@ -66,6 +71,41 @@ public class Flight {
     public void setPriceFlight(double priceFlight) {
         this.priceFlight = priceFlight;
     }
+
+    public int getDepartureHr() {
+        return departureHr;
+    }
+
+    public void setDepartureHr(int departureHr) {
+        this.departureHr = departureHr;
+    }
+
+    public int getArrivalHr() {
+        return arrivalHr;
+    }
+
+    public void setArrivalHr(int arrivalHr) {
+        this.arrivalHr = arrivalHr;
+    }
+
+    public int getDepartureMin() {
+        return departureMin;
+    }
+
+    public void setDepartureMin(int departureMin) {
+        this.departureMin = departureMin;
+    }
+
+    public int getArrivalMin() {
+        return arrivalMin;
+    }
+
+    public void setArrivalMin(int arrivalMin) {
+        this.arrivalMin = arrivalMin;
+    }
     
-    
+    @Override
+    public String toString() {
+        return flightNo;
+    }
 }

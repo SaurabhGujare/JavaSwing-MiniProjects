@@ -12,46 +12,32 @@ import java.util.ArrayList;
  * @author saurabhgujare
  */
 public class AirlinerDirectory {
-    private ArrayList<AirplaneDirectory> airlinerList;
-    private String airlinerName;
-    private int fleetSize;
+    private ArrayList<Airliner> airlinerList;
+  
+    //private int fleetSize;
 
     public AirlinerDirectory() {
-        airlinerList = new ArrayList<AirplaneDirectory>();
+        airlinerList = new ArrayList<Airliner>();
     }
 
-    public ArrayList<AirplaneDirectory> getAirlinerList() {
+    public ArrayList<Airliner> getAirlinerList() {
         return airlinerList;
     }
 
-    public void setAirlinerList(ArrayList<AirplaneDirectory> AirlinerList) {
-        this.airlinerList = AirlinerList;
+    public void setAirlinerList(ArrayList<Airliner> airlinerList) {
+        this.airlinerList = airlinerList;
     }
 
-    public String getAirlinerName() {
-        return airlinerName;
-    }
 
-    public void setAirlinerName(String airlinerName) {
-        this.airlinerName = airlinerName;
-    }
-
-    public int getFleetSize() {
-        return fleetSize;
-    }
-
-    public void setFleetSize(int fleetSize) {
-        this.fleetSize = fleetSize;
-    }
-    
-    public AirplaneDirectory addAirliner(){
-        AirplaneDirectory airliner= new AirplaneDirectory();
+    public Airliner addAirliner(){
+        Airliner airliner= new Airliner();
         airlinerList.add(airliner);
         return airliner;
     }
     
-    public void deleteAirplane(AirplaneDirectory airliner){
+    public void deleteAirliner(Airliner airliner){
         airlinerList.remove(airliner);
     }
+    
     
 }

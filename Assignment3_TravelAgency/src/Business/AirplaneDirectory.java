@@ -13,73 +13,30 @@ import java.util.Date;
  * @author saurabhgujare
  */
 public class AirplaneDirectory {
-    private ArrayList<FlightDirectory> airplaneList;
-    private String airplaneId;
-    private String modelName;
-    private int totalSeats;
-    private double fuelCapacity;
-
+    private ArrayList<AirPlane> airplaneList;
+    
     public AirplaneDirectory() {
-        airplaneList = new ArrayList<FlightDirectory>();
+        airplaneList = new ArrayList<AirPlane>();
     }
 
-    public ArrayList<FlightDirectory> getAirplaneList() {
+    public ArrayList<AirPlane> getAirplaneList() {
         return airplaneList;
     }
 
-    public void setAirplaneList(ArrayList<FlightDirectory> airplaneList) {
+    public void setAirplaneList(ArrayList<AirPlane> airplaneList) {
         this.airplaneList = airplaneList;
     }
-
-    public String getAirplaneId() {
-        return airplaneId;
-    }
-
-    public void setAirplaneId(String airplaneId) {
-        this.airplaneId = airplaneId;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
-    }
-
-    public double getFuelCapacity() {
-        return fuelCapacity;
-    }
-
-    public void setFuelCapacity(double fuelCapacity) {
-        this.fuelCapacity = fuelCapacity;
-    }
     
-    public FlightDirectory addAirplane(){
-        FlightDirectory airplane= new FlightDirectory();
+    public AirPlane addAirplane(){
+        AirPlane airplane= new AirPlane();
         airplaneList.add(airplane);
         return airplane;
     }
     
-    public void deleteAirplane(FlightDirectory aiplane){
+
+    
+    public void deleteAirplane(AirPlane aiplane){
         airplaneList.remove(aiplane);
     }
-    
-/*    public FlightDirectory searchAirplane(String modelname){
-        for(FlightDirectory fs: this.airplaneList){
-            if(fs.getFlightList()..equals(departDate)){
-                return fs;
-            }
-        }
-        return null;
-    }
- */   
+  
 }
