@@ -8,6 +8,7 @@ package UserInterface.Airliners;
 import Business.AirPlane;
 import Business.Airliner;
 import Business.AirlinerDirectory;
+import Business.CustomerDirectory;
 import Business.Flight;
 import Business.FlightDirectory;
 import java.awt.CardLayout;
@@ -37,6 +38,8 @@ public class AirlinerLoginPanel extends javax.swing.JPanel {
         }       
         
     }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

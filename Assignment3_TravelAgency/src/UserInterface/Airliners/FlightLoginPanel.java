@@ -11,6 +11,8 @@ import Business.AirlinerDirectory;
 import Business.AirplaneDirectory;
 import Business.Flight;
 import java.awt.CardLayout;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,22 +25,20 @@ public class FlightLoginPanel extends javax.swing.JPanel {
     /**
      * Creates new form FlightLoginPanel
      */
-    AirplaneDirectory airplaneList;
-    AirlinerDirectory airlinerList;
+    //AirplaneDirectory airplaneList;
     JPanel rightPanel;
-    AirPlane airplane;  
-    Airliner airliner;
+    AirPlane airplane;
+    List<AirPlane> airplaneList;
     
-    public FlightLoginPanel( AirplaneDirectory airplaneList, JPanel rightPanel, Airliner airliner) {
+    public FlightLoginPanel(JPanel rightPanel, Airliner airliner) {
         initComponents();
         this.rightPanel=rightPanel;
-        this.airlinerList=airlinerList;
-        this.airliner=airliner;
+        this.airplaneList = airliner.getAirplaneDirectory().getAirplaneList();
         
         airlinerNameTF.setText(airliner.getAirlinerName());
         
         airplaneIdCB.removeAllItems();
-        for(AirPlane airplane : airplaneList.getAirplaneList()) {
+        for(AirPlane airplane : airplaneList) {
            airplaneIdCB.addItem(airplane);
         }
         
@@ -47,12 +47,15 @@ public class FlightLoginPanel extends javax.swing.JPanel {
 
 
     public void refreshTable() {
+        if(airplaneIdCB.getSelectedIndex()==-1){
+            return;
+        }
         int rowCount = flightTbl.getRowCount();
         DefaultTableModel model = (DefaultTableModel)flightTbl.getModel();
         for(int i=rowCount-1;i>=0;i--) {
             model.removeRow(i);
         }
-        airplane = airliner.getAirplaneDirectory().getAirplaneList().get(airplaneIdCB.getSelectedIndex());
+        airplane = airplaneList.get(airplaneIdCB.getSelectedIndex());
         for(Flight p : airplane.getFlightdirectory().getFlightList()) {
             Object row[] = new Object[4];
             row[0] = p;
@@ -80,7 +83,7 @@ public class FlightLoginPanel extends javax.swing.JPanel {
         addFlightBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         removeFlightBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        viewBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         flightTbl = new javax.swing.JTable();
 
@@ -94,6 +97,11 @@ public class FlightLoginPanel extends javax.swing.JPanel {
         });
 
         airplaneIdCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        airplaneIdCB.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                onSelectCB(evt);
+            }
+        });
         airplaneIdCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 airplaneIdCBActionPerformed(evt);
@@ -117,8 +125,18 @@ public class FlightLoginPanel extends javax.swing.JPanel {
         });
 
         removeFlightBtn.setText("Remove Flight");
+        removeFlightBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeFlightBtnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("View Flight");
+        viewBtn.setText("View Flight");
+        viewBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewBtnActionPerformed(evt);
+            }
+        });
 
         flightTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,7 +178,7 @@ public class FlightLoginPanel extends javax.swing.JPanel {
                             .addContainerGap()
                             .addComponent(addFlightBtn)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton3)
+                            .addComponent(viewBtn)
                             .addGap(18, 18, 18)
                             .addComponent(removeFlightBtn))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -182,7 +200,7 @@ public class FlightLoginPanel extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeFlightBtn)
-                    .addComponent(jButton3)
+                    .addComponent(viewBtn)
                     .addComponent(addFlightBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(backBtn)
@@ -197,7 +215,7 @@ public class FlightLoginPanel extends javax.swing.JPanel {
     private void addFlightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFlightBtnActionPerformed
         // TODO add your handling code here:
        
-        AddFlightPanel addFlight = new AddFlightPanel(airlinerList, rightPanel,airliner.getAirplaneDirectory().getAirplaneList().get(airplaneIdCB.getSelectedIndex()).getFlightdirectory());
+        AddFlightPanel addFlight = new AddFlightPanel(rightPanel,airplaneList.get(airplaneIdCB.getSelectedIndex()).getFlightdirectory());
         rightPanel.add("AddFlightPanel",addFlight);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
@@ -215,6 +233,40 @@ public class FlightLoginPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_airplaneIdCBActionPerformed
 
+    private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = flightTbl.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+        }
+        else{
+        Flight flight=(Flight) flightTbl.getValueAt(selectedRow, 0);
+        ViewFlightPanel viewFlight = new ViewFlightPanel(flight, rightPanel,airplaneList.get(airplaneIdCB.getSelectedIndex()).getFlightdirectory());
+        rightPanel.add("ViewFlightPanel",viewFlight);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.next(rightPanel);
+        }
+    }//GEN-LAST:event_viewBtnActionPerformed
+
+    private void removeFlightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFlightBtnActionPerformed
+        // TODO add your handling code here:
+        int row = flightTbl.getSelectedRow();
+        
+        if(row<0) {
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Flight flight = (Flight)flightTbl.getValueAt(row, 0);
+        airplane.getFlightdirectory().deleteFlight(flight);
+        refreshTable();
+    }//GEN-LAST:event_removeFlightBtnActionPerformed
+
+    private void onSelectCB(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_onSelectCB
+        // TODO add your handling code here:
+        refreshTable();
+    }//GEN-LAST:event_onSelectCB
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addFlightBtn;
@@ -222,10 +274,10 @@ public class FlightLoginPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox airplaneIdCB;
     private javax.swing.JButton backBtn;
     private javax.swing.JTable flightTbl;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton removeFlightBtn;
+    private javax.swing.JButton viewBtn;
     // End of variables declaration//GEN-END:variables
 }

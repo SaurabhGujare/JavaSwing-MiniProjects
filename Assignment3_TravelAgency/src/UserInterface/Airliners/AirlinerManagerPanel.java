@@ -113,7 +113,7 @@ public class AirlinerManagerPanel extends javax.swing.JPanel {
 
     private void manageFlightsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageFlightsBtnActionPerformed
         // TODO add your handling code here:
-        FlightLoginPanel flightLogin = new FlightLoginPanel(airliner.getAirplaneDirectory(), rightPanel, airliner);
+        FlightLoginPanel flightLogin = new FlightLoginPanel(rightPanel, airliner);
         rightPanel.add("FlightLoginPanel",flightLogin);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);

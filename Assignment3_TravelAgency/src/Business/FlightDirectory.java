@@ -15,10 +15,13 @@ import java.util.Date;
 public class FlightDirectory {
     
     private ArrayList<Flight> flightList;
+    Flight flight;
     
     public FlightDirectory(){
         flightList = new ArrayList<Flight>();
+        
     }
+
 
     public ArrayList<Flight> getFlightList() {
         return flightList;
@@ -33,7 +36,7 @@ public class FlightDirectory {
         flightList.add(flight);
         return flight;
     }
-    
+ 
     public void deleteFlight(Flight flight){
         flightList.remove(flight);
     }

@@ -38,7 +38,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         initComponents();
         this.airliner=airliner;
         this.rightPanel=rightPanel; 
-        
+        this.airplaneDirectory = airliner.getAirplaneDirectory();
         airlinerNameTF.setText(airliner.getAirlinerName());
         refreshTable();
 
@@ -50,7 +50,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
             model.removeRow(i);
         }
         
-        for(AirPlane p : airliner.getAirplaneDirectory().getAirplaneList()) {
+        for(AirPlane p : airplaneDirectory.getAirplaneList()) {
             Object row[] = new Object[3];
             row[0] = p;
             row[1] = p.getModelName();
@@ -79,8 +79,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         airlinerNameTF = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         airplaneTbl = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        removeBtn = new javax.swing.JButton();
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Add Airplane");
@@ -128,9 +127,12 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(airplaneTbl);
 
-        jButton3.setText("View");
-
-        jButton2.setText("Remove");
+        removeBtn.setText("Remove");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,19 +140,11 @@ public class AddAirplanePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(airlinerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(376, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(airlinerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(462, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
@@ -169,7 +163,9 @@ public class AddAirplanePanel extends javax.swing.JPanel {
                             .addComponent(saveBtn))
                         .addGap(48, 48, 48))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(removeBtn)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -192,11 +188,9 @@ public class AddAirplanePanel extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(removeBtn)
+                .addGap(9, 9, 9)
                 .addComponent(backBtn)
                 .addContainerGap())
         );
@@ -208,7 +202,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        airplane = airliner.getAirplaneDirectory().addAirplane();
+        airplane = airplaneDirectory.addAirplane();
         airlinerNameTF.setText(airliner.getAirlinerName());
         airplane.setAirplaneId(airplaneIdTF.getText());
         airplane.setModelName(airplaneModelTF.getText());       
@@ -226,6 +220,18 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_airlinerNameTFActionPerformed
 
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+        int row = airplaneTbl.getSelectedRow();
+        if(row<0) {
+             JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        AirPlane p = (AirPlane)airplaneTbl.getValueAt(row, 0);
+        airplaneDirectory.deleteAirplane(p);
+        refreshTable();
+    }//GEN-LAST:event_removeBtnActionPerformed
+
     private void backAction() {
         rightPanel.remove(this);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
@@ -238,13 +244,12 @@ public class AddAirplanePanel extends javax.swing.JPanel {
     private javax.swing.JTextField airplaneModelTF;
     private javax.swing.JTable airplaneTbl;
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton removeBtn;
     private javax.swing.JButton saveBtn;
     // End of variables declaration//GEN-END:variables
 }

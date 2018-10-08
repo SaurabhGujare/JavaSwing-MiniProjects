@@ -7,10 +7,13 @@ package UserInterface;
 
 import Business.AirlinerDirectory;
 import Business.AirplaneDirectory;
+import Business.Customer;
+import Business.CustomerDirectory;
 import Business.FlightDirectory;
 import Business.Flight;
 import UserInterface.Airliners.AirlinerLoginPanel;
 import UserInterface.Airliners.AirlinerManagerPanel;
+import UserInterface.Customers.CustomerSearchPanel;
 import UserInterface.TravelAgency.TAManagerPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -27,11 +30,15 @@ public class MainJFrame extends javax.swing.JFrame {
     private FlightDirectory flightList;
     private AirlinerDirectory airlinerList;
     private AirplaneDirectory airplaneList;
+    private CustomerDirectory customerDirectory;
+    private Customer customer;
     public MainJFrame() {
         initComponents();
         flightList = new FlightDirectory();
         airlinerList = new AirlinerDirectory();
         airplaneList = new AirplaneDirectory();
+        customerDirectory = new CustomerDirectory();
+        customer = new Customer();
     }
 
     /**
@@ -47,6 +54,7 @@ public class MainJFrame extends javax.swing.JFrame {
         leftPanel = new javax.swing.JPanel();
         btnTravelAgency = new javax.swing.JButton();
         airlinerLoginBtn = new javax.swing.JButton();
+        customerBtn = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +75,13 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        customerBtn.setText("Customer");
+        customerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
         leftPanelLayout.setHorizontalGroup(
@@ -74,7 +89,13 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(leftPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnTravelAgency, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(airlinerLoginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(leftPanelLayout.createSequentialGroup()
+                .addComponent(airlinerLoginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(leftPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(customerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         leftPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {airlinerLoginBtn, btnTravelAgency});
@@ -86,7 +107,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnTravelAgency)
                 .addGap(18, 18, 18)
                 .addComponent(airlinerLoginBtn)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(customerBtn)
+                .addContainerGap(383, Short.MAX_VALUE))
         );
 
         leftPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {airlinerLoginBtn, btnTravelAgency});
@@ -112,7 +135,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnTravelAgencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTravelAgencyActionPerformed
         // TODO add your handling code here:
-        TAManagerPanel taManager = new TAManagerPanel(airlinerList, rightPanel );
+        TAManagerPanel taManager = new TAManagerPanel(airlinerList, rightPanel, customerDirectory, customer);
         rightPanel.add("TAManagerPanel",taManager);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
@@ -126,6 +149,14 @@ public class MainJFrame extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
     }//GEN-LAST:event_airlinerLoginBtnActionPerformed
+
+    private void customerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerBtnActionPerformed
+        // TODO add your handling code here:
+        CustomerSearchPanel customerSearch = new CustomerSearchPanel(airlinerList, rightPanel, customerDirectory, customer);
+        rightPanel.add("CustomerSearchPanel",customerSearch);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.next(rightPanel);
+    }//GEN-LAST:event_customerBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +196,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton airlinerLoginBtn;
     private javax.swing.JButton btnTravelAgency;
+    private javax.swing.JButton customerBtn;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JSplitPane splitPanel;

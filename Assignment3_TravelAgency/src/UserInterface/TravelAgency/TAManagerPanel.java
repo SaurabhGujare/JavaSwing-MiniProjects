@@ -6,6 +6,8 @@
 package UserInterface.TravelAgency;
 
 import Business.AirlinerDirectory;
+import Business.Customer;
+import Business.CustomerDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -21,13 +23,18 @@ public class TAManagerPanel extends javax.swing.JPanel {
     
     AirlinerDirectory airlinerList;
     JPanel rightPanel;
+    CustomerDirectory customerDirectory;
+    Customer customer;
     
-    public TAManagerPanel(AirlinerDirectory airlinerList, JPanel rightPanel) {
+    public TAManagerPanel(AirlinerDirectory airlinerList, JPanel rightPanel, CustomerDirectory customerDirectory, Customer customer) {
         initComponents();
         this.airlinerList = airlinerList;
         this.rightPanel = rightPanel;
+        this.customerDirectory=customerDirectory;
+        this.customer=customer;
     }
 
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +58,11 @@ public class TAManagerPanel extends javax.swing.JPanel {
         });
 
         manageCustomersBtn.setText("Manage Customers");
+        manageCustomersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageCustomersBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,6 +101,15 @@ public class TAManagerPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_manageAirlinerBtnActionPerformed
+
+    private void manageCustomersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCustomersBtnActionPerformed
+        // TODO add your handling code here:
+        ManageCustomerPanel manageCustomer = new ManageCustomerPanel(airlinerList, rightPanel, customerDirectory,customer);
+        rightPanel.add("ManageCustomerPanel", manageCustomer);
+        CardLayout layout= (CardLayout)rightPanel.getLayout();
+        layout.next(rightPanel);
+        
+    }//GEN-LAST:event_manageCustomersBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

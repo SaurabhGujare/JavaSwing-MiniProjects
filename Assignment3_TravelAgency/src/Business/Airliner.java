@@ -12,9 +12,19 @@ package Business;
 public class Airliner {
     private String airlinerName;
     private AirplaneDirectory airplaneDirectory;
+    private CustomerDirectory customerDirectory;
 
     public Airliner() {
         airplaneDirectory = new AirplaneDirectory();
+        customerDirectory = new CustomerDirectory();
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
     }
     
     public String getAirlinerName() {
