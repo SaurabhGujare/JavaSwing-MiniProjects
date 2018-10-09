@@ -16,9 +16,12 @@ public class FlightDirectory {
     
     private ArrayList<Flight> flightList;
     Flight flight;
+    Airliner airliner;
     
-    public FlightDirectory(){
+    public FlightDirectory(Airliner airliner){
         flightList = new ArrayList<Flight>();
+        this.airliner = airliner;
+        
         
     }
 
@@ -32,7 +35,8 @@ public class FlightDirectory {
     }
     
     public Flight addFlight(){
-        Flight flight= new Flight();
+        Flight flight= new Flight(airliner);
+        flight.initFlight();
         flightList.add(flight);
         return flight;
     }

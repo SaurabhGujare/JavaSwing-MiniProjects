@@ -46,14 +46,16 @@ public class AirlinerManagerPanel extends javax.swing.JPanel {
         manageFlightsBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
-        manageAirplanesBtn.setText("Manage Airplanes");
+        setBackground(new java.awt.Color(144, 186, 244));
+
+        manageAirplanesBtn.setText("Add Airplanes");
         manageAirplanesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageAirplanesBtnActionPerformed(evt);
             }
         });
 
-        manageFlightsBtn.setText("Manage Flights");
+        manageFlightsBtn.setText("Add Flights");
         manageFlightsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageFlightsBtnActionPerformed(evt);

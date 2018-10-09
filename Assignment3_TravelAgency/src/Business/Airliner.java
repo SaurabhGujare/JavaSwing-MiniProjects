@@ -15,7 +15,11 @@ public class Airliner {
     private CustomerDirectory customerDirectory;
 
     public Airliner() {
-        airplaneDirectory = new AirplaneDirectory();
+        
+    }
+    
+    public void initAirliner(){
+        airplaneDirectory = new AirplaneDirectory(this);
         customerDirectory = new CustomerDirectory();
     }
 

@@ -34,8 +34,6 @@ public class TAManagerPanel extends javax.swing.JPanel {
         this.customer=customer;
     }
 
- 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +46,7 @@ public class TAManagerPanel extends javax.swing.JPanel {
         manageAirlinerBtn = new javax.swing.JButton();
         manageCustomersBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(182, 188, 228));
         setPreferredSize(new java.awt.Dimension(614, 517));
 
         manageAirlinerBtn.setText("Manage Airliner");

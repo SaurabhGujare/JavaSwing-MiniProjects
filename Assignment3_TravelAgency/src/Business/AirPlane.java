@@ -14,9 +14,11 @@ public class AirPlane {
     private String airplaneId;
     private String modelName;
     private FlightDirectory flightdirectory;
+    private Airliner airliner;
 
-    public AirPlane() {
-        flightdirectory= new FlightDirectory();
+    public AirPlane(Airliner airliner) {
+        flightdirectory= new FlightDirectory(airliner);
+        this.airliner = airliner;
     }
 
     

@@ -27,16 +27,14 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    private FlightDirectory flightList;
+    //private FlightDirectory flightList;
     private AirlinerDirectory airlinerList;
-    private AirplaneDirectory airplaneList;
     private CustomerDirectory customerDirectory;
     private Customer customer;
     public MainJFrame() {
         initComponents();
-        flightList = new FlightDirectory();
+        //flightList = new FlightDirectory();
         airlinerList = new AirlinerDirectory();
-        airplaneList = new AirplaneDirectory();
         customerDirectory = new CustomerDirectory();
         customer = new Customer();
     }
@@ -60,6 +58,8 @@ public class MainJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         splitPanel.setDividerLocation(135);
+
+        leftPanel.setBackground(new java.awt.Color(105, 97, 137));
 
         btnTravelAgency.setText("Travel Agency");
         btnTravelAgency.addActionListener(new java.awt.event.ActionListener() {
@@ -109,13 +109,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(airlinerLoginBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(customerBtn)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(425, Short.MAX_VALUE))
         );
 
         leftPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {airlinerLoginBtn, btnTravelAgency});
 
         splitPanel.setLeftComponent(leftPanel);
 
+        rightPanel.setBackground(new java.awt.Color(182, 188, 228));
         rightPanel.setLayout(new java.awt.CardLayout());
         splitPanel.setRightComponent(rightPanel);
 
@@ -123,11 +124,11 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(splitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(splitPanel)
         );
 
         pack();
@@ -152,6 +153,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void customerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerBtnActionPerformed
         // TODO add your handling code here:
+        
         CustomerSearchPanel customerSearch = new CustomerSearchPanel(airlinerList, rightPanel, customerDirectory, customer);
         rightPanel.add("CustomerSearchPanel",customerSearch);
         CardLayout layout = (CardLayout) rightPanel.getLayout();

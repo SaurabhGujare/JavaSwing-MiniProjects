@@ -23,6 +23,33 @@ public class Flight {
     private int arrivalHr;
     private int departureMin;
     private int arrivalMin;
+    private Seat[][] seatArray;
+    Airliner airliner;
+
+    public Flight(Airliner airliner) {
+        this.airliner=airliner;
+        
+    }
+    
+    public void initFlight(){
+        seatArray = new Seat[25][6];
+        
+        for(int i = 0 ; i<25;i++){
+            for(int j =0 ;j<6;j++){
+                seatArray[i][j] = new Seat(this);
+                seatArray[i][j].setSeat(true);
+                seatArray[i][j].setSeatNo(i+"_"+j);
+            }
+        }
+    }
+
+    public Airliner getAirliner() {
+        return airliner;
+    }
+
+    public void setAirliner(Airliner airliner) {
+        this.airliner = airliner;
+    }
 
     public String getFlightNo() {
         return flightNo;
@@ -102,6 +129,14 @@ public class Flight {
 
     public void setArrivalMin(int arrivalMin) {
         this.arrivalMin = arrivalMin;
+    }
+
+    public Seat[][] getSeatArray() {
+        return seatArray;
+    }
+
+    public void setSeatArray(Seat[][] seatArray) {
+        this.seatArray = seatArray;
     }
     
     @Override

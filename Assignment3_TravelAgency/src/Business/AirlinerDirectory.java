@@ -31,6 +31,7 @@ public class AirlinerDirectory {
 
     public Airliner addAirliner(){
         Airliner airliner= new Airliner();
+        airliner.initAirliner();
         airlinerList.add(airliner);
         return airliner;
     }

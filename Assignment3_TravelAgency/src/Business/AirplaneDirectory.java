@@ -14,9 +14,11 @@ import java.util.Date;
  */
 public class AirplaneDirectory {
     private ArrayList<AirPlane> airplaneList;
+    private Airliner airliner;
 
-    public AirplaneDirectory() {
+    public AirplaneDirectory(Airliner airliner) {
         airplaneList = new ArrayList<AirPlane>();
+        this.airliner = airliner;
     }
 
     public ArrayList<AirPlane> getAirplaneList() {
@@ -28,7 +30,7 @@ public class AirplaneDirectory {
     }
     
     public AirPlane addAirplane(){
-        AirPlane airplane= new AirPlane();
+        AirPlane airplane= new AirPlane(airliner);
         airplaneList.add(airplane);
         
         return airplane;

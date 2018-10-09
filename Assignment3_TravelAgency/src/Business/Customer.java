@@ -5,6 +5,8 @@
  */
 package Business;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author saurabhgujare
@@ -13,6 +15,19 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String emailId;
+    private ArrayList<Seat> bookingHistory;
+
+    public Customer() {
+         bookingHistory = new ArrayList<Seat>();
+    }
+
+    public ArrayList<Seat> getBookingHistory() {
+        return bookingHistory;
+    }
+
+    public void setBookingHistory(ArrayList<Seat> bookingHistory) {
+        this.bookingHistory = bookingHistory;
+    }
 
     public String getFirstName() {
         return firstName;

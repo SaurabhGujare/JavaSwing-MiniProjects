@@ -14,6 +14,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,19 +64,40 @@ public class ManageCustomerPanel extends javax.swing.JPanel {
         removeCustomerBtn = new javax.swing.JButton();
         viewCustomerBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(182, 188, 228));
+        setPreferredSize(new java.awt.Dimension(699, 527));
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Add Customer Information");
 
-        jLabel2.setText("First Name");
+        jLabel2.setText("First Name*");
+
+        firstNameTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldFocusLost(evt);
+            }
+        });
 
         lastNameTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastNameTFActionPerformed(evt);
             }
         });
+        lastNameTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldFocusLost(evt);
+            }
+        });
 
-        jLabel3.setText("Last Name");
+        emailIdTF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldFocusLost(evt);
+            }
+        });
 
-        Email.setText("Email");
+        jLabel3.setText("Last Name*");
+
+        Email.setText("Email*");
 
         addCustomerBtn.setText("Add Customer");
         addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -128,33 +150,36 @@ public class ManageCustomerPanel extends javax.swing.JPanel {
                         .addGap(17, 17, 17)
                         .addComponent(backBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(removeCustomerBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(viewCustomerBtn))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(3, 3, 3)))
-                                .addGap(65, 65, 65)
+                                    .addComponent(jLabel3)
+                                    .addComponent(Email))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addCustomerBtn)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(firstNameTF)
-                                        .addComponent(lastNameTF)
-                                        .addComponent(emailIdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
-                            .addComponent(jLabel1)
-                            .addComponent(Email))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                                    .addComponent(firstNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(emailIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addCustomerBtn)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(removeCustomerBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(viewCustomerBtn)))))
+                .addGap(88, 88, 88))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {emailIdTF, firstNameTF, lastNameTF});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {removeCustomerBtn, viewCustomerBtn});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -172,22 +197,34 @@ public class ManageCustomerPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Email))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addCustomerBtn)
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeCustomerBtn)
                     .addComponent(viewCustomerBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backBtn)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {emailIdTF, firstNameTF, lastNameTF});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {removeCustomerBtn, viewCustomerBtn});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void addCustomerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerBtnActionPerformed
         // TODO add your handling code here:
+        if(firstNameTF.getText().isEmpty()|| lastNameTF.getText().isEmpty()||emailIdTF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, " Please add all the mandatory fields");
+            firstNameTF.setText("");
+            lastNameTF.setText("");
+            emailIdTF.setText("");
+       }
+        else{
         Customer ABC=customerDirectory.addCustomer();
         ABC.setFirstName(firstNameTF.getText());
         ABC.setLastName(lastNameTF.getText());
@@ -196,6 +233,7 @@ public class ManageCustomerPanel extends javax.swing.JPanel {
         firstNameTF.setText("");
         lastNameTF.setText("");
         emailIdTF.setText("");
+        }
     }//GEN-LAST:event_addCustomerBtnActionPerformed
     
 
@@ -253,6 +291,20 @@ public class ManageCustomerPanel extends javax.swing.JPanel {
         layout.next(rightPanel);
         }
     }//GEN-LAST:event_viewCustomerBtnActionPerformed
+
+    private void textFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldFocusLost
+        // TODO add your handling code here:
+//        JTextField intField=(JTextField)evt.getComponent();
+//     
+//        if(!intField.getText().isEmpty()){
+//            intField.getText();
+//        }
+//        else{
+//            JOptionPane.showMessageDialog(null, "Please enter the value");
+//            intField.requestFocus();
+//            
+//        }
+    }//GEN-LAST:event_textFieldFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

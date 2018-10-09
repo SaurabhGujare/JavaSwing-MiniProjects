@@ -81,6 +81,9 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         airplaneTbl = new javax.swing.JTable();
         removeBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(144, 186, 244));
+        setPreferredSize(new java.awt.Dimension(699, 527));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Add Airplane");
 
@@ -143,16 +146,10 @@ public class AddAirplanePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(airlinerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(462, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(backBtn)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 150, Short.MAX_VALUE)
+                        .addGap(0, 235, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -163,10 +160,18 @@ public class AddAirplanePanel extends javax.swing.JPanel {
                             .addComponent(saveBtn))
                         .addGap(48, 48, 48))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(removeBtn)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(466, 466, 466)
+                        .addComponent(removeBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(airlinerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backBtn))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +189,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,18 +207,28 @@ public class AddAirplanePanel extends javax.swing.JPanel {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        airplane = airplaneDirectory.addAirplane();
-        airlinerNameTF.setText(airliner.getAirlinerName());
-        airplane.setAirplaneId(airplaneIdTF.getText());
-        airplane.setModelName(airplaneModelTF.getText());       
-        JOptionPane.showMessageDialog(null,"Data saved successfully");
-        refreshTable();
-        
+        if(airplaneIdTF.getText().isEmpty()||airplaneModelTF.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "All fields are mandatory");
+           airplaneIdTF.setText("");
+           airplaneModelTF.setText("");
+        }
+        else{
+            airplane = airplaneDirectory.addAirplane();
+            airlinerNameTF.setText(airliner.getAirlinerName());
+            airplane.setAirplaneId(airplaneIdTF.getText());
+            airplane.setModelName(airplaneModelTF.getText());       
+            JOptionPane.showMessageDialog(null,"Data saved successfully");
+            refreshTable();
+        }
     }//GEN-LAST:event_saveBtnActionPerformed
 
+   
+    
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        backAction();
+        rightPanel.remove(this);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.previous(rightPanel);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void airlinerNameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airlinerNameTFActionPerformed
@@ -232,11 +247,7 @@ public class AddAirplanePanel extends javax.swing.JPanel {
         refreshTable();
     }//GEN-LAST:event_removeBtnActionPerformed
 
-    private void backAction() {
-        rightPanel.remove(this);
-        CardLayout layout = (CardLayout) rightPanel.getLayout();
-        layout.previous(rightPanel);
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField airlinerNameTF;
