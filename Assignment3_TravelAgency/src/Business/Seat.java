@@ -46,8 +46,5 @@ public class Seat {
     @Override
     public String toString() {
         return seat?"Available":"Unavailable";
-    }
-    
-    
-    
+    } 
 }

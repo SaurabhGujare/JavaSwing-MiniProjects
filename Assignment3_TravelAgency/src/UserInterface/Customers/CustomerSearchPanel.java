@@ -33,7 +33,7 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
     CustomerDirectory customerDirectory;
     Customer customer;
     //FlightDirectory flightList;
-    
+  
     public CustomerSearchPanel(AirlinerDirectory airlinerList, JPanel rightPanel, CustomerDirectory customerDirectory, Customer customer) {
         initComponents();
         this.airlinerList=airlinerList;
@@ -97,7 +97,9 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
         bookingTbl = new javax.swing.JTable();
         bookSeatBtn = new javax.swing.JButton();
         searchBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        viewBookingBtn = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        refreshBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(249, 225, 217));
         setPreferredSize(new java.awt.Dimension(699, 527));
@@ -149,10 +151,17 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("View Booking");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        viewBookingBtn.setText("View Booking");
+        viewBookingBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                viewBookingBtnActionPerformed(evt);
+            }
+        });
+
+        refreshBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/Customers/refreshBtnImg.png"))); // NOI18N
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnActionPerformed(evt);
             }
         });
 
@@ -163,41 +172,53 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
-                        .addComponent(bookSeatBtn))
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(267, 267, 267)
+                                .addComponent(bookSeatBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(toTF, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(fromTF, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(188, 188, 188)
-                                        .addComponent(searchBtn))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(165, 165, 165)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(18, 18, 18)
-                                        .addComponent(searchCustomerCB, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(111, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(188, 188, 188)
+                                                .addComponent(searchBtn))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(toTF, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(fromTF, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refreshBtn)))
+                        .addGap(0, 54, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(78, 78, 78))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(195, 195, 195))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(viewBookingBtn)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchCustomerCB, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fromTF, toTF});
@@ -205,15 +226,17 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(75, 75, 75)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchCustomerCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(viewBookingBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fromTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +249,9 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookSeatBtn)
                 .addGap(25, 25, 25))
@@ -256,7 +281,7 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
                         Object row[] = new Object[model.getColumnCount()];
                         row[0] = a;
                         row[1] = f;
-                        row[2] = f.getDepartDate();
+                        row[2] = f.getDepartDate().getMonth()+"/"+f.getDepartDate().getDate()+"/"+((f.getDepartDate().getYear())+1900);
                         row[3] = f.getDepartLoc();
                         row[4] = f.getArrivalLoc();
                         row[5] = String.valueOf(f.getDepartureHr()+":"+f.getDepartureMin());
@@ -271,32 +296,45 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
 
     private void bookSeatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSeatBtnActionPerformed
         // TODO add your handling code here:
-        Customer customer1 = (Customer)searchCustomerCB.getSelectedItem();
+        int row1 = bookingTbl.getSelectedRow();
+        
+        if(row1<0){
+            JOptionPane.showMessageDialog(null, "Please select the flight", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            Customer customer1 = (Customer)searchCustomerCB.getSelectedItem();
+            Flight flight1 =(Flight) bookingTbl.getValueAt(bookingTbl.getSelectedRow(), 1);
+            seatBookingPanel seatBooking = new seatBookingPanel(flight1.getSeatArray(),rightPanel, customer1);
 
-        Flight flight1 =(Flight) bookingTbl.getValueAt(bookingTbl.getSelectedRow(), 1);
-        
-        seatBookingPanel seatBooking = new seatBookingPanel(flight1.getSeatArray(),rightPanel, customer1);
-        
-        rightPanel.add("seatBookingPanel",seatBooking);
-        CardLayout layout = (CardLayout) rightPanel.getLayout();
-        layout.next(rightPanel);                            
+            rightPanel.add("seatBookingPanel",seatBooking);
+            CardLayout layout = (CardLayout) rightPanel.getLayout();
+            layout.next(rightPanel);
+        }
     }//GEN-LAST:event_bookSeatBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void viewBookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBookingBtnActionPerformed
+        try{
         Customer customer1 = (Customer)searchCustomerCB.getSelectedItem();
         bookingHistoryPanel historyPanel = new bookingHistoryPanel(rightPanel, customer1);
         
         rightPanel.add("seatBookingPanel",historyPanel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);   
-    }//GEN-LAST:event_jButton2ActionPerformed
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "No customer selected");
+        }
+    }//GEN-LAST:event_viewBookingBtnActionPerformed
+
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        // TODO add your handling code here:
+        refreshTable();
+    }//GEN-LAST:event_refreshBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookSeatBtn;
     private javax.swing.JTable bookingTbl;
     private javax.swing.JTextField fromTF;
-    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -304,8 +342,11 @@ public class CustomerSearchPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JComboBox searchCustomerCB;
     private javax.swing.JTextField toTF;
+    private javax.swing.JButton viewBookingBtn;
     // End of variables declaration//GEN-END:variables
 }

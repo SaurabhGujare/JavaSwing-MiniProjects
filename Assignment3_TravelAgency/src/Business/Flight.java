@@ -38,7 +38,12 @@ public class Flight {
             for(int j =0 ;j<6;j++){
                 seatArray[i][j] = new Seat(this);
                 seatArray[i][j].setSeat(true);
-                seatArray[i][j].setSeatNo(i+"_"+j);
+                if(j==0)seatArray[i][j].setSeatNo("A"+" "+(i+1));
+                    else if (j==1)seatArray[i][j].setSeatNo("B"+" "+(i+1));
+                    else if (j==2)seatArray[i][j].setSeatNo("C"+" "+(i+1));
+                    else if (j==3)seatArray[i][j].setSeatNo("D"+" "+(i+1));
+                    else if (j==4)seatArray[i][j].setSeatNo("E"+" "+(i+1));
+                    else seatArray[i][j].setSeatNo("F"+" "+(i+1));
             }
         }
     }
